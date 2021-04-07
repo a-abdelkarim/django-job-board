@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 JOB_TYPE = (
     ('Full Time', 'Full Time'),
@@ -20,6 +21,14 @@ class Job(models.Model):
     vacancy = models.IntegerField(default=1)
     salary = models.IntegerField(default=0)
     experience = models.IntegerField(default=0)
+
+    slug = models.SlugField(blank=True, null=True)
+
+
+    def save(self, *args, **kwargs):
+        self.slug = 'AsVbQr3RfVZcGJhjT%sErBfXs%s'%(slugify(self.title), self.id)
+
+        super(Job, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
