@@ -26,7 +26,8 @@ class Job(models.Model):
 
 
     def save(self, *args, **kwargs):
-        self.slug = 'AsVbQr3RfVZcGJhjT%sErBfXs%s'%(slugify(self.title), self.id)
+        title = slugify(self.title)
+        self.slug = '%s-%s'%(title, self.id)
 
         super(Job, self).save(*args, **kwargs)
 
@@ -39,3 +40,17 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+class Candidate(models.Model):
+    job = models.ForeignKey(Job, related_name='cnadidate', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    website = models.URLField()
+    resume = models.FileField(upload_to='cnadidates')
+    cover_letter = models.TextField(max_length=500)
+    applied_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name + self.email
