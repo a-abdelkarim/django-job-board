@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 JOB_TYPE = (
     ('Full Time', 'Full Time'),
@@ -11,7 +12,7 @@ def image_upload(instance, filename):
     return "jobs/%s_%s_%s.%s"%(instance.id, instance.title, instance.published_at, extention)
 
 class Job(models.Model):
-    
+    user = models.ForeignKey(User, related_name='job_publisher', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     job_type = models.CharField(max_length=15, choices=JOB_TYPE)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
