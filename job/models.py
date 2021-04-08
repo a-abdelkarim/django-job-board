@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+import random
 
 JOB_TYPE = (
     ('Full Time', 'Full Time'),
@@ -28,7 +29,13 @@ class Job(models.Model):
 
     def save(self, *args, **kwargs):
         title = slugify(self.title)
-        self.slug = '%s-%s'%(title, self.id)
+        r1 = random.random()
+        r2 = random.random()
+        r3 = random.random()
+        r4 = random.random()
+        sum_r = (r1+r2)*(r3)*(r4)
+        
+        self.slug = '%s-%s'%(title, sum_r)
 
         super(Job, self).save(*args, **kwargs)
 
