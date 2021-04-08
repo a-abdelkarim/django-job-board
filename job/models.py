@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 import random
+import string
 
 JOB_TYPE = (
     ('Full Time', 'Full Time'),
@@ -29,13 +30,12 @@ class Job(models.Model):
 
     def save(self, *args, **kwargs):
         title = slugify(self.title)
-        r1 = random.random()
-        r2 = random.random()
-        r3 = random.random()
-        r4 = random.random()
-        sum_r = (r1+r2)*(r3)*(r4)
+        letters = string.ascii_letters
+        letters_2 = string.ascii_letters
+        letters = ''.join(random.choice(letters) for i in range(10))
+        letters_2 = ''.join(random.choice(letters) for i in range(10))
         
-        self.slug = '%s-%s'%(title, sum_r)
+        self.slug = '%s%s%s'%(letters_2, title, letters)
 
         super(Job, self).save(*args, **kwargs)
 
