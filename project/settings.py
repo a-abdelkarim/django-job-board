@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     #Frameworks
     'bootstrap4',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
