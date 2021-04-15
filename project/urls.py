@@ -17,13 +17,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_swagger.views import get_swagger_view
 
+
+schema_view = get_swagger_view(title='Job Board Swagger')
 urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('admin/', admin.site.urls),
     path('jobs/', include('job.urls', namespace='jobs')),
     path('api-auth/', include('rest_framework.urls')),
+    path('doc/', schema_view),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

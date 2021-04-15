@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     #Frameworks
     'bootstrap4',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +142,11 @@ STATICFILES_DIRS = [
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+#Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+    ],
+}
+
